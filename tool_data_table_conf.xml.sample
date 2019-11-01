@@ -1,0 +1,7 @@
+<tables>
+    <!-- Locations of Monorail indexes -->
+    <table name="monorail_index_versioned" comment_char="#" allow_duplicate_entries="False">
+        <columns>value, dbkey, name, path, version</columns>
+        <file path="tool-data/monorail_index_versioned.loc" />
+    </table>
+</tables>

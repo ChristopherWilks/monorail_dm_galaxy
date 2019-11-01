@@ -1,0 +1,48 @@
+<tool id="monorail_index_builder_data_manager" name="monorail index" tool_type="manage_data" version="@IDX_VERSION@+galaxy1" profile="17.01">
+    <description>builder</description>
+
+    <macros>
+        <import>macros.xml</import>
+    </macros>
+
+    <expand macro="requirements" />
+
+    <command><![CDATA[
+
+#import os
+#set $target_directory = str($out_file.extra_files_path)
+#set $subdir = os.path.basename($target_directory)
+
+mkdir '${target_directory}' &&
+
+bash '${__tool_directory__}/download_and_extract_monorail_index.sh' '${target_directory}' &&
+python '${__tool_directory__}/monorail_index_builder.py'
+--config-file '${out_file}'
+--value '${all_fasta_source.fields.value}'
+--dbkey '${all_fasta_source.fields.dbkey}'
+--index-version '@IDX_VERSION@'
+#if $name:
+    --name '$name'
+#else
+    --name 'monorail_index'
+#end if
+--data-table monorail_index_versioned
+--subdir '${subdir}'
+    ]]></command>
+    <inputs>
+    </inputs>
+
+    <outputs>
+        <data name="out_file" format="data_manager_json"/>
+    </outputs>
+    <help><![CDATA[
+.. class:: infomark
+
+This is a Galaxy data manager tool for the RNA-seq alignment and quantification pipeline Monorail.
+
+This version of the tool downloads and extract the pre-built STAR/HISAT2/Salmon indices for Monorail version @IDX_VERSION@.
+The Monorail version defines both an organism (e.g. Human) and a reference version (e.g. HG38),
+as well as an annotation (e.g. Gencode V26) for gene/exon/transcript quantifications.
+**Notice:** If you leave name, description, or id blank, it will be generated automatically.
+    ]]></help>
+</tool>
