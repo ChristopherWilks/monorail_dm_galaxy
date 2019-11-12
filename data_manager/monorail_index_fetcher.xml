@@ -10,7 +10,7 @@
         #set $subdir = os.path.basename($target_directory)
         mkdir '${target_directory}' &&
         bash '${__tool_directory__}/download_and_extract_monorail_index.sh' '${target_directory}' '${monorail_index_url}' &&
-        python data_manager.py --out "${out_file}"
+        python '${__tool_directory__}/data_manager.py' --out "${out_file}"
         #if $monorail_index_url:
             --url "${monorail_index_url}"
         #end if
