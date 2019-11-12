@@ -25,12 +25,6 @@ def main(args):
     data_manager_entry['name'] = args.name
     data_manager_entry['path'] = args.output
     data_manager_json = dict(data_tables=dict(monorail_index=data_manager_entry))
-    params = json.loads(open(args.output).read())
-    target_directory = params['output_data'][0]['extra_files_path']
-    os.mkdir(target_directory)
-    output_path = os.path.abspath(os.path.join(os.getcwd(), 'monorail_index'))
-    for filename in os.listdir(workdir):
-        shutil.move(os.path.join(output_path, filename), target_directory)
     file(args.output, 'w').write(json.dumps(data_manager_json))
 
 if __name__ == '__main__':
