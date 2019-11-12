@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<tool id="monorail_index_fetcher" name="Monorail Index Fetch" tool_type="manage_data" version="1.0.0">
+    <description>monorail indexes fetcher</description>
+    <stdio>
+        <exit_code description="Error" level="fatal" range="1:" />
+    </stdio>
+    <command><![CDATA[
+        #import os
+        #set $target_directory = str($out_file.extra_files_path)
+        #set $subdir = os.path.basename($target_directory)
+        mkdir '${target_directory}' &&
+        bash '${__tool_directory__}/download_and_extract_monorail_index.sh' '${target_directory}' '${monorail_index_url}' &&
+        python data_manager.py --out "${out_file}"
+        #if $monorail_index_url:
+            --url "${monorail_index_url}"
+        #end if
+        #if $index_name:
+            --name "${index_name}"
+        #end if
+        ]]></command>
+    <inputs>
+        <param help="Enter a unique identifier, or leave blank to use the reference ID at end of base URL below" label="Name for this Monorail index set" name="index_name" type="text" optional="True" />
+        <param label="Enter base URL for Monorail index directories (e.g. http://snaptron.cs.jhu.edu/data/monorail/ath10)" name="monorail_index_url" type="text" />
+    </inputs>
+    <outputs>
+        <data format="data_manager_json" name="out_file" />
+    </outputs>
+</tool>

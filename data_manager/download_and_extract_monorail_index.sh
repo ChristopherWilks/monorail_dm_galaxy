@@ -1,16 +1,19 @@
 #!/bin/bash
 
 target_dir=$1
-#e.g. "hg38" or "ath10"
+#e.g. http://snaptron.cs.jhu.edu/data/monorail/ath10 or http://snaptron.cs.jhu.edu/data/monorail/hg38
 ref=$2
 
 if [[ -z $ref ]]; then
-   ref='ath10'
+   ref='http://snaptron.cs.jhu.edu/data/monorail/ath10'
 fi 
+
+url=$ref
+ref=$(basename $url)
 
 mkdir -p ${target_dir}/${ref}
 for f in gtf.tar.gz unmapped_hisat2_idx.tar.gz salmon_index.tar.gz star_idx.tar.gz ; do
-    curl http://snaptron.cs.jhu.edu/data/monorail/${ref}/${f} > ${target_dir}/${ref}/${f}
+    curl ${url}/${f} > ${target_dir}/${ref}/${f}
     pushd ${target_dir}/${ref}
     tar -zxvf ${f}
     popd
