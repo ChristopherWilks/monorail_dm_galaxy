@@ -1,28 +1,19 @@
-<?xml version="1.0"?>
+<?xml version="1.0" ncoding="utf-8" ?>
 <data_managers>
-
     <data_manager tool_file="data_manager/monorail_index_fetcher.xml" id="monorail_index_fetcher" version="1.0.0">
-		<data_table name="monorail_index">
-			<output>
-                <column name="value"/>
-				<column name="dbkey"/>
+    <data_table name="monorail_index">
+            <output>
+                <column name="value" />
+                <column name="dbkey" />
                 <column name="path" output_ref="out_file">
-                    <move relativize_symlinks="True" type="directory">
-                        <!-- <source>${path}</source>
-                            out_file.extra_files_path is used as base by default
-                            if no source, eg for type=directory, then refers to base
-                        -->
-                        <target base="${GALAXY_DATA_MANAGER_DATA_PATH}">monorail_index/${dbkey}</target>
+                    <move relative_symlinks="True" type="directory">
+                        <!-- no need to set source, gets taken from out_dir.extra_files_path -->
+                        <target base="${GALAXY_DATA_MANAGER_DATA_PATH}">${dbkey}/mri/${value}</target>
                     </move>
-                    <value_translation>${GALAXY_DATA_MANAGER_DATA_PATH}/monorail_index/${dbkey}</value_translation>
+                    <value_translation>${GALAXY_DATA_MANAGER_DATA_PATH}/{$dbkey}/mri/${value}/${path}</value_translation>
                     <value_translation type="function">abspath</value_translation>
                 </column>
-				<column name="exons_path">
-                    <value_translation>${GALAXY_DATA_MANAGER_DATA_PATH}/monorail_index/${dbkey}/gtf/exons.bed</value_translation>
-                    <value_translation type="function">abspath</value_translation>
-                </column>
-			</output>
-		</data_table>
-	</data_manager>
-
+            </output>
+   </data_table>
+</data_manager>
 </data_managers>
