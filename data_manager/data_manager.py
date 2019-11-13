@@ -20,16 +20,18 @@ def main(args):
     workdir = os.path.join(os.getcwd(), 'monorail_index')
     data_manager_entry = {}
     ref = args.url.split('/')[-1]
-    data_manager_entry['dbkey'] = ref
-    data_manager_entry['value'] = ref.lower()
+    #data_manager_entry['dbkey'] = 'mrail.'+ref
+    data_manager_entry['dbkey'] = ref.lower()
+    data_manager_entry['value'] = 'v'+ref.lower()
     jsonin = open(args.output).read()
     params = json.loads(jsonin)
     target_directory = params['output_data'][0]['extra_files_path']
     #data_manager_entry['path'] = params['output_data'][0]['extra_files_path']
-    data_manager_entry['path'] = ref
-    data_manager_entry['exons_path'] = data_manager_entry['path'] + os.sep + 'gtf' + os.sep + 'exons.bed'
-    data_manager_json = dict(data_tables=dict(monorail_index=data_manager_entry))
-    file(args.output, 'w').write(json.dumps(data_manager_json))
+    data_manager_entry['path'] = target_directory
+    data_manager_entry['name'] = 'mrail.'+ref
+    #data_manager_entry['exons_path'] = data_manager_entry['path'] + os.sep + 'gtf' + os.sep + 'exons.bed'
+    data_manager_json = dict(data_tables={'monorail_index': [data_manager_entry]})
+    file(args.output, 'wb').write(json.dumps(data_manager_json))
 
 if __name__ == '__main__':
     main(args)
