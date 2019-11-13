@@ -1,8 +1,7 @@
 <?xml version="1.0"?>
 <tables>
-    <!-- Locations of gene annotation data -->
-    <table name="gene_annotation" comment_char="#">
+    <table name="monorail_index" comment_char="#">
         <columns>value, dbkey, name, path</columns>
-        <file path="tool-data/gene_annotation.loc" />
+        <file path="tool-data/monorail_index.loc" />
     </table>
 </tables>
