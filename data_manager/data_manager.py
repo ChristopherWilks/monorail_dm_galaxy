@@ -20,16 +20,14 @@ def main(args):
     workdir = os.path.join(os.getcwd(), 'monorail_index')
     data_manager_entry = {}
     ref = args.url.split('/')[-1]
-    if args.name is None:
-        args.name = ref
-    data_manager_entry['value'] = args.name.lower()
-    data_manager_entry['name'] = args.name
+    data_manager_entry['dbkey'] = ref
+    data_manager_entry['value'] = ref.lower()
     jsonin = open(args.output).read()
-    sys.stderr.write(jsonin)
     params = json.loads(jsonin)
     target_directory = params['output_data'][0]['extra_files_path']
-    data_manager_entry['path'] = params['output_data'][0]['extra_files_path']
-    data_manager_entry['exons_path'] = data_manager_entry['path'] + os.sep + ref + os.sep + 'gtf' + os.sep + 'exons.bed'
+    #data_manager_entry['path'] = params['output_data'][0]['extra_files_path']
+    data_manager_entry['path'] = ref
+    data_manager_entry['exons_path'] = data_manager_entry['path'] + os.sep + 'gtf' + os.sep + 'exons.bed'
     data_manager_json = dict(data_tables=dict(monorail_index=data_manager_entry))
     file(args.output, 'w').write(json.dumps(data_manager_json))
 

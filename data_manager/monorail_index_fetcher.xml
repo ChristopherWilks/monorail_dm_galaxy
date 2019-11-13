@@ -14,12 +14,8 @@
         #if $monorail_index_url:
             --url "${monorail_index_url}"
         #end if
-        #if $index_name:
-            --name "${index_name}"
-        #end if
         ]]></command>
     <inputs>
-        <param help="Enter a unique identifier, or leave blank to use the reference ID at end of base URL below" label="Name for this Monorail index set" name="index_name" type="text" optional="True" />
         <param label="Enter base URL for Monorail index directories (e.g. http://snaptron.cs.jhu.edu/data/monorail/ath10)" name="monorail_index_url" type="text" />
     </inputs>
     <outputs>
