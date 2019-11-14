@@ -10,13 +10,13 @@
         #set $subdir = os.path.basename($target_directory)
         mkdir '${target_directory}' &&
         bash '${__tool_directory__}/download_and_extract_monorail_index.sh' '${target_directory}' '${monorail_index_url}' &&
-        python '${__tool_directory__}/data_manager.py' --out "${out_file}"
+        python '${__tool_directory__}/data_manager.py' --config "${out_file}" --subdir ${subdir}
         #if $monorail_index_url:
             --url "${monorail_index_url}"
         #end if
         ]]></command>
     <inputs>
-        <param label="Enter base URL for Monorail index directories (e.g. http://snaptron.cs.jhu.edu/data/monorail/ath10)" name="monorail_index_url" type="text" />
+        <param label="Enter base URL for Monorail index directories (e.g. http://snaptron.cs.jhu.edu/data/monorail/1.0.0/ath10)" name="monorail_index_url" type="text" />
     </inputs>
     <outputs>
         <data format="data_manager_json" name="out_file" />

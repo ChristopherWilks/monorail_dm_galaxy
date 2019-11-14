@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <tables>
     <table name="monorail_index" comment_char="#">
-        <columns>value, dbkey, name, path</columns>
+        <columns>value, dbkey, name, path, exons_path, version</columns>
         <file path="tool-data/monorail_index.loc" />
     </table>
 </tables>
